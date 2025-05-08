@@ -36,6 +36,11 @@
             display: flex;
             align-items: center;
             margin-bottom: 10px;
+            padding: 10px;
+            border-bottom: 1px dashed #ff66b3;
+        }
+        .exercise:last-child {
+            border-bottom: none;
         }
         .exercise img {
             width: 100px;
@@ -43,156 +48,540 @@
             margin-right: 15px;
             border-radius: 8px;
             border: 2px solid #ff66b3;
+            object-fit: cover;
+        }
+        .exercise-details {
+            flex-grow: 1;
+        }
+        .exercise-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        .rest-time {
+            color: #ff66b3;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+        .checkbox {
+            width: 25px;
+            height: 25px;
+            border: 2px solid #ff66b3;
+            border-radius: 5px;
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+            background-color: white;
+        }
+        .checkbox.checked {
+            background-color: #ff66b3;
+        }
+        .checkbox.checked:after {
+            content: '✓';
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 16px;
+        }
+        .reset-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #ff66b3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .reset-btn:hover {
+            background-color: #ff4da6;
+        }
+        .progress-container {
+            margin-top: 10px;
+            width: 100%;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 15px;
+            background-color: #ff66b3;
+            width: 0%;
+            transition: width 0.3s ease;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Plano de Treino</h1>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="total-progress"></div>
+        </div>
+        <p id="progress-text" style="text-align: center;">0% completo</p>
+        
+        <button class="reset-btn" onclick="resetCheckboxes()">Zerar Treino</button>
 
         <div class="day">
             <h2>Segunda-feira (Quadríceps e glúteo)</h2>
             <div class="exercise">
-                <img src="https://static.wixstatic.com/media/2edbed_1e5b3a2a758c4fbbaae17f1be3a90597~mv2.webp/v1/fill/w_254,h_254,al_c,q_80,enc_avif,quality_auto/2edbed_1e5b3a2a758c4fbbaae17f1be3a90597~mv2.webp" alt="Exemplo 1">
-                <p>Cadeira extensora (6/10)</p>
+                <img src="https://static.wixstatic.com/media/2edbed_1e5b3a2a758c4fbbaae17f1be3a90597~mv2.webp/v1/fill/w_254,h_254,al_c,q_80,enc_avif,quality_auto/2edbed_1e5b3a2a758c4fbbaae17f1be3a90597~mv2.webp" alt="Cadeira extensora">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Cadeira extensora (6/10)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 60 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://static.wixstatic.com/media/2edbed_34e498947c0246c897b6b6f722b4f51f~mv2.webp/v1/fill/w_840,h_397,al_c,lg_1,q_80/2edbed_34e498947c0246c897b6b6f722b4f51f~mv2.webp" alt="Exemplo 2">
-                <p>Agachamento (4/10)</p>
+                <img src="https://static.wixstatic.com/media/2edbed_34e498947c0246c897b6b6f722b4f51f~mv2.webp/v1/fill/w_840,h_397,al_c,lg_1,q_80/2edbed_34e498947c0246c897b6b6f722b4f51f~mv2.webp" alt="Agachamento">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Agachamento (4/10)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 90 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://s3assets.skimble.com/assets/2761495/image_iphone.jpg" alt="Exemplo 2">
-                <p>Leg press (3/15)</p>
+                <img src="https://s3assets.skimble.com/assets/2761495/image_iphone.jpg" alt="Leg press">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Leg press (3/15)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 75 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2rOtLdlvzES9JkHfGvvxdBKcYfovdVLmVHw&s" alt="Exemplo 2">
-                <p>Elevação pélvica (4/10)</p>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2rOtLdlvzES9JkHfGvvxdBKcYfovdVLmVHw&s" alt="Elevação pélvica">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Elevação pélvica (4/10)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 60 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://static.wixstatic.com/media/2edbed_fe4bccf171f046f7b923595e1b4e24e0~mv2.webp/v1/fill/w_640,h_853,al_c,q_85,enc_avif,quality_auto/2edbed_fe4bccf171f046f7b923595e1b4e24e0~mv2.webp" alt="Exemplo 2">
-                <p>Búlgaro (4/10)</p>
+                <img src="https://static.wixstatic.com/media/2edbed_fe4bccf171f046f7b923595e1b4e24e0~mv2.webp/v1/fill/w_640,h_853,al_c,q_85,enc_avif,quality_auto/2edbed_fe4bccf171f046f7b923595e1b4e24e0~mv2.webp" alt="Búlgaro">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Búlgaro (4/10)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 75 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://static.wixstatic.com/media/2edbed_a57ba733e4d54923850db3c7d81b3f07~mv2.gif/v1/fill/w_980,h_980,al_c,usm_0.66_1.00_0.01,pstr/2edbed_a57ba733e4d54923850db3c7d81b3f07~mv2.gif" alt="Exemplo 2">
-                <p>Cadeira abdutora (4/10)</p>
+                <img src="https://static.wixstatic.com/media/2edbed_a57ba733e4d54923850db3c7d81b3f07~mv2.gif/v1/fill/w_980,h_980,al_c,usm_0.66_1.00_0.01,pstr/2edbed_a57ba733e4d54923850db3c7d81b3f07~mv2.gif" alt="Cadeira abdutora">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Cadeira abdutora (4/10)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 60 segundos</p>
+                </div>
             </div>
         </div>
 
         <div class="day">
             <h2>Terça-feira (Peito e ombro)</h2>
             <div class="exercise">
-                <img src="https://static.strengthlevel.com/images/exercises/dumbbell-lateral-raise/dumbbell-lateral-raise-800.jpg" alt="Exemplo 3">
-                <p>Elevação lateral (3/15)</p>
+                <img src="https://static.strengthlevel.com/images/exercises/dumbbell-lateral-raise/dumbbell-lateral-raise-800.jpg" alt="Elevação lateral">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Elevação lateral (3/15)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 45 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://grandeatleta.com.br/blog/wp-content/uploads/2020/02/elevacao-frontal.jpg" alt="Exemplo 3">
-                <p>Elevação lateral + frontal (3/12)</p>
+                <img src="https://grandeatleta.com.br/blog/wp-content/uploads/2020/02/elevacao-frontal.jpg" alt="Elevação lateral + frontal">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Elevação lateral + frontal (3/12)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 60 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://treinomestre.com.br/wp-content/uploads/2018/09/desenvolvimento-com-halteres-.jpg" alt="Exemplo 3">
-                <p>Desenvolvimento com halteres (4/12)</p>
+                <img src="https://treinomestre.com.br/wp-content/uploads/2018/09/desenvolvimento-com-halteres-.jpg" alt="Desenvolvimento com halteres">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Desenvolvimento com halteres (4/12)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 75 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://static.wixstatic.com/media/2edbed_18ff111d73fe4b289be16659aacdc380~mv2.png/v1/fill/w_980,h_737,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/2edbed_18ff111d73fe4b289be16659aacdc380~mv2.png" alt="Exemplo 3">
-                <p>Remada alta (3/12)</p>
+                <img src="https://static.wixstatic.com/media/2edbed_18ff111d73fe4b289be16659aacdc380~mv2.png/v1/fill/w_980,h_737,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/2edbed_18ff111d73fe4b289be16659aacdc380~mv2.png" alt="Remada alta">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Remada alta (3/12)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 60 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://static.strengthlevel.com/images/exercises/machine-chest-fly/machine-chest-fly-800.jpg" alt="Exemplo 3">
-                <p>Crucifixo máquina (3/12)</p>
+                <img src="https://static.strengthlevel.com/images/exercises/machine-chest-fly/machine-chest-fly-800.jpg" alt="Crucifixo máquina">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Crucifixo máquina (3/12)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 60 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://static.wixstatic.com/media/2edbed_bcb35259926b4e02be0e5c7935b6f656~mv2.webp/v1/fill/w_980,h_515,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/2edbed_bcb35259926b4e02be0e5c7935b6f656~mv2.webp" alt="Exemplo 3">
-                <p>Supino banco reto (3/12)</p>
+                <img src="https://static.wixstatic.com/media/2edbed_bcb35259926b4e02be0e5c7935b6f656~mv2.webp/v1/fill/w_980,h_515,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/2edbed_bcb35259926b4e02be0e5c7935b6f656~mv2.webp" alt="Supino banco reto">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Supino banco reto (3/12)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 90 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://treinomestre.com.br/wp-content/uploads/2022/05/crucifixo-inclinado.jpg" alt="Exemplo 3">
-                <p>Crucifixo com halteres (3/12)</p>
+                <img src="https://treinomestre.com.br/wp-content/uploads/2022/05/crucifixo-inclinado.jpg" alt="Crucifixo com halteres">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Crucifixo com halteres (3/12)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 60 segundos</p>
+                </div>
             </div>
         </div>
-
         <div class="day">
             <h2>Quarta-feira (Biceps e Tríceps)</h2>
             <div class="exercise">
-                <img src="https://static.strengthlevel.com/images/exercises/hammer-curl/hammer-curl-400.avif" alt="Exemplo 4">
-                <p>Rosca martelo (4/12)</p>
+                <img src="https://static.strengthlevel.com/images/exercises/hammer-curl/hammer-curl-400.avif" alt="Rosca martelo">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Rosca martelo (4/12)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 60 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://static.wixstatic.com/media/2edbed_bdff6ca8e82c49dfaf0b8e9259e04c7d~mv2.webp" alt="Exemplo 4">
-                <p>Tríceps francês (4/12)</p>
+                <img src="https://static.wixstatic.com/media/2edbed_bdff6ca8e82c49dfaf0b8e9259e04c7d~mv2.webp" alt="Tríceps francês">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Tríceps francês (4/12)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 60 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://static.wixstatic.com/media/2edbed_1d29b79a719143299d8c925946dc5947~mv2.jpg/v1/fill/w_639,h_783,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/2edbed_1d29b79a719143299d8c925946dc5947~mv2.jpg" alt="Exemplo 4">
-                <p>Rosca na polia (12/10/8/8)</p>
+                <img src="https://static.wixstatic.com/media/2edbed_1d29b79a719143299d8c925946dc5947~mv2.jpg/v1/fill/w_639,h_783,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/2edbed_1d29b79a719143299d8c925946dc5947~mv2.jpg" alt="Rosca na polia">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Rosca na polia (12/10/8/8)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 45 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://static1.minhavida.com.br/articles/fc/ea/ed/47/lio-putrashutterstock-article-1.jpg" alt="Exemplo 4">
-                <p>Tríceps barra (12/10/8/8)</p>
+                <img src="https://static1.minhavida.com.br/articles/fc/ea/ed/47/lio-putrashutterstock-article-1.jpg" alt="Tríceps barra">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Tríceps barra (12/10/8/8)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 45 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA6AWy500SdzVyuxcSno2GBeDiyIwscNuz_g&s" alt="Exemplo 4">
-                <p>Rosca 45 (3/12)</p>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA6AWy500SdzVyuxcSno2GBeDiyIwscNuz_g&s" alt="Rosca 45">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Rosca 45 (3/12)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 60 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://www.treinoemalta.com.br/wp-content/uploads/2023/07/Triceps-testa-na-Polia.gif" alt="Exemplo 4">
-                <p>Testa na polia (3/12)</p>
+                <img src="https://www.treinoemalta.com.br/wp-content/uploads/2023/07/Triceps-testa-na-Polia.gif" alt="Testa na polia">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Testa na polia (3/12)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 60 segundos</p>
+                </div>
             </div>
         </div>
 
         <div class="day">
             <h2>Quinta-feira (Posterior e glúteo)</h2>
             <div class="exercise">
-                <img src="https://static.wixstatic.com/media/2edbed_27267b25e8cc4aa0bef50a2d95d6359f~mv2.jpg/v1/fill/w_637,h_600,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/2edbed_27267b25e8cc4aa0bef50a2d95d6359f~mv2.jpg" alt="Exemplo 5">
-                <p>Cadeira adutora (4/10)</p>
+                <img src="https://static.wixstatic.com/media/2edbed_27267b25e8cc4aa0bef50a2d95d6359f~mv2.jpg/v1/fill/w_637,h_600,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/2edbed_27267b25e8cc4aa0bef50a2d95d6359f~mv2.jpg" alt="Cadeira adutora">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Cadeira adutora (4/10)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 60 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://www.lyfta.app/_next/image?url=https%3A%2F%2Flyfta.app%2Fimages%2Fexercises%2F42031101.png&w=3840&q=75" alt="Exemplo 5">
-                <p>terra sumô (3/15)</p>
+                <img src="https://www.lyfta.app/_next/image?url=https%3A%2F%2Flyfta.app%2Fimages%2Fexercises%2F42031101.png&w=3840&q=75" alt="Terra sumô">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Terra sumô (3/15)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 90 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://static.wixstatic.com/media/2edbed_b56096d54ff4408abf777a38fd29e5f5~mv2.gif/v1/fill/w_980,h_980,al_c,usm_0.66_1.00_0.01,pstr/2edbed_b56096d54ff4408abf777a38fd29e5f5~mv2.gif" alt="Exemplo 5">
-                <p>Stiff (3/15)</p>
+                <img src="https://static.wixstatic.com/media/2edbed_b56096d54ff4408abf777a38fd29e5f5~mv2.gif/v1/fill/w_980,h_980,al_c,usm_0.66_1.00_0.01,pstr/2edbed_b56096d54ff4408abf777a38fd29e5f5~mv2.gif" alt="Stiff">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Stiff (3/15)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 75 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://treinomestre.com.br/wp-content/uploads/2019/11/coice-na-polia-extensao-de-quadril.jpg" alt="Exemplo 5">
-                <p>Coice trazeiro (4/10)</p>
+                <img src="https://treinomestre.com.br/wp-content/uploads/2019/11/coice-na-polia-extensao-de-quadril.jpg" alt="Coice traseiro">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Coice traseiro (4/10)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 60 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://i.pinimg.com/736x/13/d6/35/13d6354775483715aa70107fb173b2ab.jpg" alt="Exemplo 5">
-                <p>Mesa flexora (4/10)</p>
+                <img src="https://i.pinimg.com/736x/13/d6/35/13d6354775483715aa70107fb173b2ab.jpg" alt="Mesa flexora">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Mesa flexora (4/10)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 60 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://static.wixstatic.com/media/2edbed_2d201a9e80a94bd3976b4aafc48e0e6d~mv2.png/v1/fill/w_337,h_483,al_c,lg_1,q_85/2edbed_2d201a9e80a94bd3976b4aafc48e0e6d~mv2.png" alt="Exemplo 5">
-                <p>Panturilha (3/15)</p>
+                <img src="https://static.wixstatic.com/media/2edbed_2d201a9e80a94bd3976b4aafc48e0e6d~mv2.png/v1/fill/w_337,h_483,al_c,lg_1,q_85/2edbed_2d201a9e80a94bd3976b4aafc48e0e6d~mv2.png" alt="Panturilha">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Panturilha (3/15)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 45 segundos</p>
+                </div>
             </div>
         </div>
 
         <div class="day">
             <h2>Sexta-feira (Costas)</h2>
             <div class="exercise">
-                <img src="https://static.strengthlevel.com/images/exercises/seated-cable-row/seated-cable-row-800.jpg" alt="Exemplo 6">
-                <p>remada baixa com triângulo (5/12)</p>
+                <img src="https://static.strengthlevel.com/images/exercises/seated-cable-row/seated-cable-row-800.jpg" alt="Remada baixa com triângulo">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Remada baixa com triângulo (5/12)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 75 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://static1.minhavida.com.br/articles/47/10/8b/7b/makatserchykshutterstock-remada-baixa-com-pegada-pronada-article-1.jpg" alt="Exemplo 6">
-                <p>remada baixa aberta (4/12)</p>
+                <img src="https://static1.minhavida.com.br/articles/47/10/8b/7b/makatserchykshutterstock-remada-baixa-com-pegada-pronada-article-1.jpg" alt="Remada baixa aberta">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Remada baixa aberta (4/12)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 60 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://treinomestre.com.br/wp-content/uploads/2015/03/remada-curvada-capa.jpg" alt="Exemplo 6">
-                <p>remada curvada (4/12)</p>
+                <img src="https://treinomestre.com.br/wp-content/uploads/2015/03/remada-curvada-capa.jpg" alt="Remada curvada">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Remada curvada (4/12)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 75 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://static.wixstatic.com/media/b29f80_87d4a873c1774fef929d0fb2bda4d295~mv2.jpg/v1/fill/w_980,h_700,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/b29f80_87d4a873c1774fef929d0fb2bda4d295~mv2.jpg" alt="Exemplo 6">
-                <p>Puxada aberta (4/12)</p>
+                <img src="https://static.wixstatic.com/media/b29f80_87d4a873c1774fef929d0fb2bda4d295~mv2.jpg/v1/fill/w_980,h_700,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/b29f80_87d4a873c1774fef929d0fb2bda4d295~mv2.jpg" alt="Puxada aberta">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Puxada aberta (4/12)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 75 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://static.wixstatic.com/media/2edbed_2d5f7e6514b74a9da0b4da3109379e63~mv2.png/v1/fill/w_241,h_330,al_c,q_85,enc_avif,quality_auto/2edbed_2d5f7e6514b74a9da0b4da3109379e63~mv2.png" alt="Exemplo 6">
-                <p>Puxada fechada (4/12)</p>
+                <img src="https://static.wixstatic.com/media/2edbed_2d5f7e6514b74a9da0b4da3109379e63~mv2.png/v1/fill/w_241,h_330,al_c,q_85,enc_avif,quality_auto/2edbed_2d5f7e6514b74a9da0b4da3109379e63~mv2.png" alt="Puxada fechada">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Puxada fechada (4/12)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 75 segundos</p>
+                </div>
             </div>
             <div class="exercise">
-                <img src="https://static.wixstatic.com/media/2edbed_e727430cc2574170a0973bcea6f07801~mv2.gif/v1/fill/w_360,h_360,al_c,pstr/2edbed_e727430cc2574170a0973bcea6f07801~mv2.gif" alt="Exemplo 6">
-                <p>Crucifixo na máquina (4/12)</p>
+                <img src="https://static.wixstatic.com/media/2edbed_e727430cc2574170a0973bcea6f07801~mv2.gif/v1/fill/w_360,h_360,al_c,pstr/2edbed_e727430cc2574170a0973bcea6f07801~mv2.gif" alt="Crucifixo na máquina">
+                <div class="exercise-details">
+                    <div class="exercise-info">
+                        <p>Crucifixo na máquina (4/12)</p>
+                        <div class="checkbox-container">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        </div>
+                    </div>
+                    <p class="rest-time">Descanso: 60 segundos</p>
+                </div>
             </div>
         </div>
+        
+        <button class="reset-btn" onclick="resetCheckboxes()">Zerar Treino</button>
     </div>
+
+    <script>
+        // Verificar se há checkboxes salvos no localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCheckboxes();
+            updateProgress();
+        });
+
+        // Toggle checkbox status
+        function toggleCheck(element) {
+            element.classList.toggle('checked');
+            saveCheckboxes();
+            updateProgress();
+        }
+
+        // Salvar estado dos checkboxes
+        function saveCheckboxes() {
+            const checkboxes = document.querySelectorAll('.checkbox');
+            const checkboxStates = Array.from(checkboxes).map(checkbox => checkbox.classList.contains('checked'));
+            localStorage.setItem('treinoCheckboxes', JSON.stringify(checkboxStates));
+        }
+
+        // Carregar estado dos checkboxes
+        function loadCheckboxes() {
+            const savedCheckboxes = localStorage.getItem('treinoCheckboxes');
+            if (savedCheckboxes) {
+                const checkboxStates = JSON.parse(savedCheckboxes);
+                const checkboxes = document.querySelectorAll('.checkbox');
+                
+                checkboxes.forEach((checkbox, index) => {
+                    if (index < checkboxStates.length && checkboxStates[index]) {
+                        checkbox.classList.add('checked');
+                    }
+                });
+            }
+        }
+
+        // Resetar todos os checkboxes
+        function resetCheckboxes() {
+            const checkboxes = document.querySelectorAll('.checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.classList.remove('checked');
+            });
+            saveCheckboxes();
+            updateProgress();
+        }
+
+        // Atualizar barra de progresso
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.checkbox');
+            const total = checkboxes.length;
+            const checked = document.querySelectorAll('.checkbox.checked').length;
+            
+            const percentage = total > 0 ? Math.round((checked / total) * 100) : 0;
+            
+            document.getElementById('total-progress').style.width = percentage + '%';
+            document.getElementById('progress-text').textContent = percentage + '% completo';
+        }
+    </script>
 </body>
 </html>
